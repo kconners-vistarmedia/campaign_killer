@@ -1,0 +1,163 @@
+{
+	"info": {
+		"_postman_id": "b022694c-1384-4b7d-b26e-b49928fb4cb5",
+		"name": "Campaign",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43986078",
+		"_collection_link": "https://kaylen-1634439.postman.co/workspace/Kaylen's-Workspace~6a5c2e19-9aa4-4798-88ca-142f8a44593f/collection/43986078-b022694c-1384-4b7d-b26e-b49928fb4cb5?action=share&source=collection_link&creator=43986078"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let responseData = pm.response.json();",
+							"pm.environment.set(\"authToken\", responseData.access_token)"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"grant_type\": \"password\",\n      \"username\":\"qa+buyer_trafficking\",\n      \"password\":\"zacXR36zxEszDud\",\n      \"audience\":\"http://localhost.vistarmedia.com\",\n      \"client_id\":\"4BBRX95VUudS2zgGVpd7OkOjsvRNwiSr\",\n      \"client_secret\":\"PBTH95wzUOqy55kVT26hRvKkM3V0oISIS92KMVRvylZ0RkdRr9HI-gTES3RoVQGs\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dev-login.vistarmedia.com/oauth/token",
+					"protocol": "https",
+					"host": [
+						"dev-login",
+						"vistarmedia",
+						"com"
+					],
+					"path": [
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Campaign",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost.vistarmedia.com:5555/campaign/tdQ9dHtcQUyK6681vnMQJQ",
+					"protocol": "http",
+					"host": [
+						"localhost",
+						"vistarmedia",
+						"com"
+					],
+					"port": "5555",
+					"path": [
+						"campaign",
+						"tdQ9dHtcQUyK6681vnMQJQ"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\n        \"id\": \"sz0xXPjxQP0dMpx5Djkneg\",\n        \"name\": \"QA API Campaign Y2PRDSUDXZ\",\n        \"insertion_order_id\": \"NPM589JoR2K1w6dDqNQkYg\",\n        \"active\": false,\n        \"buy_type\": \"audience\",\n        \"bid_cents\": 1000000,\n        \"bid_cents_without_markup\": 833333,\n        \"bid_strategy\": \"fixed\",\n        \"start_date\": \"2025-04-05T23:09:25+00:00\",\n        \"end_date\": \"2025-10-01T23:09:25+00:00\",\n        \"last_updated\": \"2024-12-20T23:09:25.937011+00:00\",\n        \"even_pacing\": true,\n        \"pacing_option\": \"even\",\n        \"creatives\": [],\n        \"budget\": {\n            \"type\": \"dollars\",\n            \"value\": 9040,\n            \"is_rebudgeted\": false\n        },\n        \"pixel_url\": \"\",\n        \"archived\": false,\n        \"targetings\": {},\n        \"pacing_start_date\": \"2025-04-05T23:09:25+00:00\",\n        \"pacing_start_value\": 0,\n        \"locked\": false,\n        \"country\": \"NL\",\n        \"revenue_tracking\": {\n            \"type\": \"advertiser_media_markup_bp\",\n            \"value\": 83\n        }\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost.vistarmedia.com:5555/campaign/",
+					"protocol": "http",
+					"host": [
+						"localhost",
+						"vistarmedia",
+						"com"
+					],
+					"port": "5555",
+					"path": [
+						"campaign",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Run Delete Loop",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3115/api/campaigns?auth={{authToken}}&numberToSmoke=40",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3115",
+					"path": [
+						"api",
+						"campaigns"
+					],
+					"query": [
+						{
+							"key": "auth",
+							"value": "{{authToken}}"
+						},
+						{
+							"key": "numberToSmoke",
+							"value": "40"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
