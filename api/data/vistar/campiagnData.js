@@ -1,4 +1,6 @@
 const {default: axios, head} = require('axios');
+const envData = require('../../env.json');
+
 
 //found on SO, dont hate
 function shuffleArray(array) {
@@ -9,10 +11,11 @@ function shuffleArray(array) {
 }
 
 const clearCampaign = async (request, response) => {
+        
     let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: 'http://localhost.vistarmedia.com:5555/campaign',
+            url: `${envData[request.query.env].domain}/campaign`,
             headers: { 
                 'Authorization': `Bearer ${request.query.auth}`
               },
@@ -22,11 +25,10 @@ const clearCampaign = async (request, response) => {
         .then((response) => {
             let items = response.data;
             //Find deletable campaigns(The only pattern I saw was could not be active)
-            let deleteable = items.filter((cam) => cam.active == false)
+            let flushSubstring = request.query.matchOnString ?? "Must supply a substring";
+            let deleteable = items.filter((cam) => cam.active == false && cam.name.toLowerCase().includes(flushSubstring.toLowerCase()))
             //ShuffleArray so that we aren't trying to clear the same items over and over again.
             shuffleArray(deleteable) 
-          
-
             //build array of items to delete
             let smokethem = []
             //pull number of Items from route
@@ -39,7 +41,7 @@ const clearCampaign = async (request, response) => {
                 method: 'delete',
                 maxBodyLength: Infinity,
                 //Todo, create a variable here.
-                url: 'http://localhost.vistarmedia.com:5555/campaign/',
+                url: `${envData[request.query.env].domain}/campaign/`,
                 headers: { 
                   'Content-Type': 'application/json', 
                   'Authorization': `Bearer ${request.query.auth}`
@@ -56,7 +58,6 @@ const clearCampaign = async (request, response) => {
                 console.log(error);
               });
         })
-        
     response.sendStatus(200)
 }
 
