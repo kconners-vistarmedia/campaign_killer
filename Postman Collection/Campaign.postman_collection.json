@@ -8,7 +8,7 @@
 	},
 	"item": [
 		{
-			"name": "Login",
+			"name": "Login As Buyer",
 			"event": [
 				{
 					"listen": "test",
@@ -30,7 +30,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n      \"grant_type\": \"password\",\n      \"username\":\"qa+buyer_trafficking\",\n      \"password\":\"zacXR36zxEszDud\",\n      \"audience\":\"http://localhost.vistarmedia.com\",\n      \"client_id\":\"4BBRX95VUudS2zgGVpd7OkOjsvRNwiSr\",\n      \"client_secret\":\"PBTH95wzUOqy55kVT26hRvKkM3V0oISIS92KMVRvylZ0RkdRr9HI-gTES3RoVQGs\"\n    }",
+					"raw": "{\n      \"grant_type\": \"password\",\n      \"username\":\"{{qa_buyer}}\",\n      \"password\":\"{{qa_password}}\",\n      \"audience\": \"{{audience}}\",\n      \"client_id\":\"4BBRX95VUudS2zgGVpd7OkOjsvRNwiSr\",\n      \"client_secret\":\"PBTH95wzUOqy55kVT26hRvKkM3V0oISIS92KMVRvylZ0RkdRr9HI-gTES3RoVQGs\"\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -69,17 +69,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost.vistarmedia.com:5555/campaign/tdQ9dHtcQUyK6681vnMQJQ",
-					"protocol": "http",
+					"raw": "{{domain}}/campaign",
 					"host": [
-						"localhost",
-						"vistarmedia",
-						"com"
+						"{{domain}}"
 					],
-					"port": "5555",
 					"path": [
-						"campaign",
-						"tdQ9dHtcQUyK6681vnMQJQ"
+						"campaign"
 					]
 				}
 			},
@@ -102,7 +97,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "[{\n        \"id\": \"sz0xXPjxQP0dMpx5Djkneg\",\n        \"name\": \"QA API Campaign Y2PRDSUDXZ\",\n        \"insertion_order_id\": \"NPM589JoR2K1w6dDqNQkYg\",\n        \"active\": false,\n        \"buy_type\": \"audience\",\n        \"bid_cents\": 1000000,\n        \"bid_cents_without_markup\": 833333,\n        \"bid_strategy\": \"fixed\",\n        \"start_date\": \"2025-04-05T23:09:25+00:00\",\n        \"end_date\": \"2025-10-01T23:09:25+00:00\",\n        \"last_updated\": \"2024-12-20T23:09:25.937011+00:00\",\n        \"even_pacing\": true,\n        \"pacing_option\": \"even\",\n        \"creatives\": [],\n        \"budget\": {\n            \"type\": \"dollars\",\n            \"value\": 9040,\n            \"is_rebudgeted\": false\n        },\n        \"pixel_url\": \"\",\n        \"archived\": false,\n        \"targetings\": {},\n        \"pacing_start_date\": \"2025-04-05T23:09:25+00:00\",\n        \"pacing_start_value\": 0,\n        \"locked\": false,\n        \"country\": \"NL\",\n        \"revenue_tracking\": {\n            \"type\": \"advertiser_media_markup_bp\",\n            \"value\": 83\n        }\n    }\n]",
+					"raw": "[ \n    {\n        \"id\": \"7kSbKghWRwSGxftiloFUYw\",\n        \"name\": \"QA API Campaign ADY1MHYWNR\",\n        \"insertion_order_id\": \"olUsGrM_ReyMqfFSmE2pxw\",\n        \"active\": false,\n        \"buy_type\": \"audience\",\n        \"bid_cents\": 1000000,\n        \"bid_cents_without_markup\": 833333,\n        \"bid_strategy\": \"fixed\",\n        \"start_date\": \"2025-10-12T15:00:13+00:00\",\n        \"end_date\": \"2026-01-09T15:00:13+00:00\",\n        \"last_updated\": \"2025-04-15T15:00:13.825892+00:00\",\n        \"even_pacing\": true,\n        \"pacing_option\": \"ahead\",\n        \"creatives\": [],\n        \"budget\": {\n            \"type\": \"dollars\",\n            \"value\": 9208,\n            \"is_rebudgeted\": false\n        },\n        \"pixel_url\": \"\",\n        \"archived\": false,\n        \"targetings\": {},\n        \"pacing_start_date\": \"2025-10-12T15:00:13+00:00\",\n        \"pacing_start_value\": 0,\n        \"locked\": false,\n        \"country\": \"GB\"\n    }\n]",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -110,14 +105,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost.vistarmedia.com:5555/campaign/",
-					"protocol": "http",
+					"raw": "{{domain}}/campaign/",
 					"host": [
-						"localhost",
-						"vistarmedia",
-						"com"
+						"{{domain}}"
 					],
-					"port": "5555",
 					"path": [
 						"campaign",
 						""
@@ -135,7 +126,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3115/api/campaigns?auth={{authToken}}&numberToSmoke=40",
+					"raw": "http://localhost:3115/api/campaigns?auth={{authToken}}&numberToSmoke=1&env=dev&matchOnString=Cypress Test Plan",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -152,7 +143,15 @@
 						},
 						{
 							"key": "numberToSmoke",
-							"value": "40"
+							"value": "1"
+						},
+						{
+							"key": "env",
+							"value": "dev"
+						},
+						{
+							"key": "matchOnString",
+							"value": "Cypress Test Plan"
 						}
 					]
 				}
