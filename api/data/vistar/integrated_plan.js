@@ -2,11 +2,11 @@ const {default: axios, head} = require('axios');
 const envData = require('../../env.json');
 const array = require('../../support/array');
 
-const clearCampaign = async (request, response) => {
+const clearIntegratedPlans = async (request, response) => {
     let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `${envData[request.query.env].domain}/campaign`,
+            url: `${envData[request.query.env].domain}/integrated_plan/`,
             headers: { 
                 'Authorization': `Bearer ${request.query.auth}`
               },
@@ -15,9 +15,9 @@ const clearCampaign = async (request, response) => {
         axios.request(config)
         .then((response) => {
             let items = response.data;
-            //Find deletable campaigns(The only pattern I saw was could not be active)
+            
             let flushSubstring = request.query.matchOnString ?? "Must supply a substring";
-            let deleteable = items.filter((cam) => cam.active == false && cam.name.toLowerCase().includes(flushSubstring.toLowerCase()))
+            let deleteable = items.filter((plan) => plan.name.toLowerCase().includes(flushSubstring.toLowerCase()))
             //ShuffleArray so that we aren't trying to clear the same items over and over again.
             array.shuffleArray(deleteable) 
             //build array of items to delete
@@ -32,14 +32,14 @@ const clearCampaign = async (request, response) => {
                 method: 'delete',
                 maxBodyLength: Infinity,
                 //Todo, create a variable here.
-                url: `${envData[request.query.env].domain}/campaign/`,
+                url: `${envData[request.query.env].domain}/integrated_plan/`,
                 headers: { 
                   'Content-Type': 'application/json', 
                   'Authorization': `Bearer ${request.query.auth}`
                 },
                 data : smokethem
             }
-              
+            //console.log(JSON.stringify(smokethem))
             axios.request(configDel)
             .then((response) => {
                 //log response if you want it.
@@ -53,5 +53,5 @@ const clearCampaign = async (request, response) => {
 }
 
 module.exports = {
-    clearCampaign
+    clearIntegratedPlans
 }
