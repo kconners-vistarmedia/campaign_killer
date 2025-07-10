@@ -6,5 +6,6 @@ var jsonParser = bodyParser.json()
 
 router.get('/:run_id/', testDetailsScripts.getAllDetailsByRun)
 router.post('/', jsonParser, testDetailsScripts.addTestCaseDetail)
+router.post('/sync', jsonParser, testDetailsScripts.syncTestResults)
 
 module.exports = router;
